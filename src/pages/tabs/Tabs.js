@@ -79,7 +79,7 @@ const Tabs = () => {
                     {
                         window.location.href.indexOf("/app/home") != -1 ? (
                             <>
-                                <IonImg src="assets/images/home/1@2x.png" alt="home" />
+                                <IonImg src="assets/images/home/icon/图层81拷贝@2x.png" alt="home" />
                                 <IonLabel>{t('tabs.home')}</IonLabel>
                             </>
                         ) : (
@@ -94,7 +94,7 @@ const Tabs = () => {
                     {
                         window.location.href.indexOf("/app/record") != -1 ? (
                             <>
-                                <IonImg src="assets/images/home/3@2x.png" alt="record" />
+                                <IonImg src="assets/images/home/icon/图层82拷贝@2x.png" alt="record" />
                                 <IonLabel>{t('tabs.record')}</IonLabel>
                             </>
                         ) : (
@@ -112,7 +112,7 @@ const Tabs = () => {
                     {
                         window.location.href.indexOf("/app/support") != -1 ? (
                             <>
-                                <IonImg src="assets/images/home/5@2x.png" alt="home" />
+                                <IonImg src="assets/images/home/icon/图层85拷贝@2x.png" alt="home" />
                                 <IonLabel>{t('tabs.service')}</IonLabel>
                             </>
                         ) : (
@@ -127,7 +127,7 @@ const Tabs = () => {
                     {
                         window.location.href.indexOf("/app/account") != -1 ? (
                             <>
-                                <IonImg src="assets/images/home/7@2x.png" alt="account" />
+                                <IonImg src="assets/images/home/icon/图层87@2x.png" alt="account" />
                                 <IonLabel>{t('tabs.account')}</IonLabel>
                             </>
                         ) : (

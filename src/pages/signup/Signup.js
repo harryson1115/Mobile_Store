@@ -1,4 +1,5 @@
 import { IonButton, IonButtons, IonImg, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonPage, IonRouterLink, IonRow, IonToolbar, IonFooter } from '@ionic/react';
+import axios from 'axios';
 import styles from './Signup.module.scss';
 
 import SignupField from '../../components/signup/SignupField';
@@ -20,12 +21,33 @@ const Signup = () => {
     const [errors, setErrors] = useState(false);
 
     const createAccount = () => {
-
         const errors = validateForm(fields);
         setErrors(errors);
-
+        
         if (!errors.length) {
-            router.push("/login");
+            var data = {
+                memberName: fields[0].input.state.value,
+                areaCode: 'XXX', 
+                phoneNumber: fields[1].input.state.value, 
+                password: fields[2].input.state.value, 
+                verifyPassword: fields[3].input.state.value, 
+                inviteCode: fields[4].input.state.value, 
+                channelId: 0
+            };
+            console.log(data);
+            axios.post("http://128.199.96.41:9124/app/member/register", {
+                headers: {
+                    'Authorization': "eyJhbGciOiJIUzUxMiJ9.eyJhcHBfbG9naW5fdXNlcl9rZXkiOiI3YzEwNTM4Ny03YWEzLTQwZWEtYWJjYS1mNmY3Y2YxMWYyMTkifQ.7Ub939QkmEVttNmBAhmtaY_aMjhS4wV4ehlliUWcgku6J7btmfHBB5dWZutA-1cN2DCEpQVdAsG99fesPD1xUg", 
+                    'Accept-Language': 'en', 
+                    'Content-Type': 'application/json'
+                }, 
+                data: data
+            }).then((response) => {
+                console.log('end', data)
+                if (response.code == 200) {
+                    router.push("/login");
+                }
+            })
             //  Submit your form here
         }
     }
@@ -59,8 +81,8 @@ const Signup = () => {
                     </IonRow>
                     <IonRow className="ion-margin-top ion-padding-top">
                         <IonCol size="12">
-                            {fields.map(field => {
-                                return <SignupField field={field} errors={errors} />;
+                            {fields.map((field, index) => {
+                                return <SignupField field={field} errors={errors} key={index} />;
                             })}
                             <IonButton className="custom-button ion-padding-top ion-margin-bottom" expand="block" onClick={createAccount}>{t('signup.register')}</IonButton>
                         </IonCol>

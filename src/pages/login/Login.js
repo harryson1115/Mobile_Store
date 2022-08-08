@@ -65,16 +65,16 @@ const Login = () => {
                     <IonRow className="ion-margin-top ion-padding-top">
                         <IonCol size="12" className="ion-margin-top ion-padding-top">
 
-                            {fields.map(field => {
+                            {fields.map((field, index) => {
 
-                                return <LoginField className={styles.loginCustomInput} field={field} errors={errors} />;
+                                return <LoginField className={styles.loginCustomInput} field={field} errors={errors} key={index} />;
                             })}
 
                             <IonRow className={`ion-padding-bottom ion-padding-start ion-padding-end ion-justify-content-between ${styles.loginCustomRow}`}>
                                 <IonCol>
                                     <div className={styles.loginFormGroup}>
                                         <input type="checkbox" id="html" />
-                                        <label for="html">{t('login.remember')}</label>
+                                        <label htmlFor="html">{t('login.remember')}</label>
                                     </div>
                                 </IonCol>
                                 <IonCol className='ion-text-right'>

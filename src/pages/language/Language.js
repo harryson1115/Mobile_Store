@@ -44,8 +44,8 @@ const Language = () => {
                 <IonGrid>
                     <IonRow>
                         <IonCol size="12">
-                            {fields.map(field => {
-                                return <LanguageButton field={field} />;
+                            {fields.map((field, index) => {
+                                return <LanguageButton field={field} key={index} />;
                             })}
                         </IonCol>
                     </IonRow>

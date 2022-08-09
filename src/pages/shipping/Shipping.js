@@ -60,7 +60,7 @@ const Shipping = () => {
                 <IonGrid className="ion-padding">
                     <IonRow>
                         <IonCol size="12">
-                            {fields.map(field => {
+                            {fields.map((field, index)  => {
                                 return <SignupField field={field} errors={errors} />;
                             })}
                             <IonRow className={`ion-justify-content-between ion-padding-top ${styles.setAddress}`}>

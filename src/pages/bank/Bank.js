@@ -60,7 +60,7 @@ const Bank = () => {
                 <IonGrid className="ion-padding">
                     <IonRow>
                         <IonCol size="12">
-                            {fields.map(field => {
+                            {fields.map((field, index)  => {
                                 return <SignupField field={field} errors={errors} />;
                             })}
                             <IonButton className="custom-button ion-padding-top ion-margin-bottom" expand="block" onClick={changeAddress}>{t('shipping.confirm')}</IonButton>

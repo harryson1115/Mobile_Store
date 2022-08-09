@@ -76,7 +76,7 @@ const Withdraw = () => {
                 <IonGrid className="ion-padding">
                     <IonRow>
                         <IonCol size="12">
-                            {fields.map(field => {
+                            {fields.map((field, index)  => {
                                 return <SignupField field={field} errors={errors} />;
                             })}
                             <IonButton className="custom-button ion-padding-top ion-margin-bottom" expand="block" onClick={withdrawAction}>{t('withdraw.title')}</IonButton>

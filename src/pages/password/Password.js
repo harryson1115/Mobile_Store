@@ -1,3 +1,4 @@
+import axios from 'axios';
 import styles from './Password.module.scss';
 
 import { IonButton, IonButtons, IonBackButton, IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonToolbar, IonFooter, IonTitle } from '@ionic/react';
@@ -21,12 +22,46 @@ const Password = () => {
 
     const confirmPassword = () => {
 
-        const errors = validateForm(fields);
-        setErrors(errors);
+        let errors = validateForm(fields);
+        if (fields.filter(e => e.id === 'new-password')[0].input.state.value != fields.filter(e => e.id === 'confirm-password')[0].input.state.value) {
+            console.log(errors);
+            if (errors.filter(item => item.id === 'confirm-password').length) {
+                setErrors(errors.map(item => {
+                    if (item.id === 'confirm-password') return {
+                        ...item, 
+                        message: t('forgot.confirmpwd')
+                    }
+                    else return item;
+                }));
+            } else {
+                errors = [...errors, { id: 'confirm-password', message: t('forgot.confirmpwd') }];
+                setErrors([
+                    ...errors, { id: 'confirm-password', message: t('forgot.confirmpwd') }
+                ])
+            }
+
+        } else setErrors(errors);
 
         if (!errors.length) {
-            router.push("/login");
-            //  Submit your form here
+            var data = {
+                memberId: 1, //varuable
+                oldPassword: fields[0].input.state.value,
+                password: fields[1].input.state.value,
+            };
+            console.log(data);
+            axios.post("http://128.199.96.41:9124/app/member/login/password/modify", {
+                headers: {
+                    'Authorization': "eyJhbGciOiJIUzUxMiJ9.eyJhcHBfbG9naW5fdXNlcl9rZXkiOiI3YzEwNTM4Ny03YWEzLTQwZWEtYWJjYS1mNmY3Y2YxMWYyMTkifQ.7Ub939QkmEVttNmBAhmtaY_aMjhS4wV4ehlliUWcgku6J7btmfHBB5dWZutA-1cN2DCEpQVdAsG99fesPD1xUg",
+                    'Accept-Language': 'en',
+                    'Content-Type': 'application/json'
+                },
+                data: data
+            }).then((response) => {
+                console.log(response);
+                if (response.code == 200) {
+                    router.push("/home");
+                }
+            })
         }
     }
 
@@ -60,8 +95,8 @@ const Password = () => {
                 <IonGrid className="ion-padding">
                     <IonRow className="ion-margin-top ion-padding-top">
                         <IonCol size="12">
-                            {fields.map(field => {
-                                return <SignupField field={field} errors={errors} />;
+                            {fields.map((field, index) => {
+                                return <SignupField field={field} errors={errors} key={index} />;
                             })}
                             <IonButton className="custom-button ion-padding-top ion-margin-bottom" expand="block" onClick={confirmPassword}>{t('forgot.button')}</IonButton>
                         </IonCol>

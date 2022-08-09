@@ -1,4 +1,5 @@
 import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonPage, IonRouterLink, IonRow, IonToolbar } from '@ionic/react';
+import axios from 'axios';
 import styles from './Login.module.scss';
 
 import { arrowBack, globeOutline } from "ionicons/icons";
@@ -26,8 +27,27 @@ const Login = () => {
         setErrors(errors);
 
         if (!errors.length) {
-            router.push("/app/home");
-            //  Submit your form here
+            var data = {
+                loginType: 1, 
+                areaCode: '1', 
+                loginName: fields[0].input.state.value, 
+                password: fields[1].input.state.value, 
+                channelId: 0
+            };
+            console.log(data);
+            axios.post("http://128.199.96.41:9124/app/member/login", {
+                headers: {
+                    'Authorization': "eyJhbGciOiJIUzUxMiJ9.eyJhcHBfbG9naW5fdXNlcl9rZXkiOiI3YzEwNTM4Ny03YWEzLTQwZWEtYWJjYS1mNmY3Y2YxMWYyMTkifQ.7Ub939QkmEVttNmBAhmtaY_aMjhS4wV4ehlliUWcgku6J7btmfHBB5dWZutA-1cN2DCEpQVdAsG99fesPD1xUg", 
+                    'Accept-Language': 'en', 
+                    'Content-Type': 'application/json'
+                }, 
+                data: data
+            }).then((response) => {
+                console.log(response);
+                if (response.code == 200) {
+                    router.push("/app/home");
+                }
+            })
         }
     }
 

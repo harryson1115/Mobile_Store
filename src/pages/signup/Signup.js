@@ -1,5 +1,4 @@
 import { IonButton, IonButtons, IonImg, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonPage, IonRouterLink, IonRow, IonToolbar, IonFooter } from '@ionic/react';
-import axios from 'axios';
 import styles from './Signup.module.scss';
 
 import SignupField from '../../components/signup/SignupField';
@@ -11,6 +10,8 @@ import { useParams } from 'react-router';
 import { useIonRouter } from "@ionic/react";
 
 import { useTranslation } from "react-i18next";
+
+import { userSignUp } from '../../utils/api';
 
 
 const Signup = () => {
@@ -34,21 +35,13 @@ const Signup = () => {
                 inviteCode: fields[4].input.state.value, 
                 channelId: 0
             };
-            console.log(data);
-            axios.post("http://128.199.96.41:9124/app/member/register", {
-                headers: {
-                    'Authorization': "eyJhbGciOiJIUzUxMiJ9.eyJhcHBfbG9naW5fdXNlcl9rZXkiOiI3YzEwNTM4Ny03YWEzLTQwZWEtYWJjYS1mNmY3Y2YxMWYyMTkifQ.7Ub939QkmEVttNmBAhmtaY_aMjhS4wV4ehlliUWcgku6J7btmfHBB5dWZutA-1cN2DCEpQVdAsG99fesPD1xUg", 
-                    'Accept-Language': 'en', 
-                    'Content-Type': 'application/json'
-                }, 
-                data: data
-            }).then((response) => {
-                console.log('end', data)
+            // console.log(data);
+            userSignUp(data, (response) => {
+                // console.log('end', data)
                 if (response.code == 200) {
                     router.push("/login");
                 }
-            })
-            //  Submit your form here
+            });
         }
     }
 

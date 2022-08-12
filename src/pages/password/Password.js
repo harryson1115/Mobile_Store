@@ -12,6 +12,7 @@ import { useIonRouter } from "@ionic/react";
 
 import { useTranslation } from "react-i18next";
 
+import { passwordModify } from '../../utils/api';
 
 const Password = () => {
     const { t, i18n } = useTranslation('lang');
@@ -28,7 +29,7 @@ const Password = () => {
             if (errors.filter(item => item.id === 'confirm-password').length) {
                 setErrors(errors.map(item => {
                     if (item.id === 'confirm-password') return {
-                        ...item, 
+                        ...item,
                         message: t('forgot.confirmpwd')
                     }
                     else return item;
@@ -48,16 +49,9 @@ const Password = () => {
                 oldPassword: fields[0].input.state.value,
                 password: fields[1].input.state.value,
             };
-            console.log(data);
-            axios.post("http://128.199.96.41:9124/app/member/login/password/modify", {
-                headers: {
-                    'Authorization': "eyJhbGciOiJIUzUxMiJ9.eyJhcHBfbG9naW5fdXNlcl9rZXkiOiI3YzEwNTM4Ny03YWEzLTQwZWEtYWJjYS1mNmY3Y2YxMWYyMTkifQ.7Ub939QkmEVttNmBAhmtaY_aMjhS4wV4ehlliUWcgku6J7btmfHBB5dWZutA-1cN2DCEpQVdAsG99fesPD1xUg",
-                    'Accept-Language': 'en',
-                    'Content-Type': 'application/json'
-                },
-                data: data
-            }).then((response) => {
-                console.log(response);
+            // console.log(data);
+            passwordModify(data).then((response) => {
+                // console.log(response);
                 if (response.code == 200) {
                     router.push("/home");
                 }

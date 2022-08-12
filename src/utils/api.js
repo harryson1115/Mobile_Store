@@ -28,3 +28,14 @@ export const userLogin = (data, callback) => {
         callback(err);
     })
 } 
+
+export const passwordModify = (data, callback) => {
+    axios.post(`${process.env.REACT_APP_BACKEND_API}/app/member/login`, {
+        headers: headers, 
+        data: data
+    }).then(response => {
+        callback(response);
+    }).catch(err => {
+        callback(err);
+    })
+} 
